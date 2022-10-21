@@ -133,6 +133,7 @@ function update(time) {
 }
 
 function applyRules() {
+  const { width, height } = canvas
   // Applies rules to every boid
   boids.forEach((boid) => {
     // console.log('applying rules')

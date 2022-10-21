@@ -28,6 +28,10 @@ html,body{
   flex-direction: column;
   bottom:0;
 }
+.checkboxes > span > input{
+  height: 20px;
+  width: 20px;
+}
 #reset{
   position: fixed;
   top:10px;
