@@ -1,11 +1,5 @@
-//Vector class written entirely by me (7fi)
+//Vector class written entirely by 7fi
 class Vector {
-  //Constructors
-  // constructor(){
-  //   this.x = 0
-  //   this.y = 0
-  // }
-
   constructor(dir, mag, placeholder) {
     //System.out.println(x + " " + y);
     if (arguments.length == 0) {
@@ -21,11 +15,6 @@ class Vector {
       }
     }
   }
-
-  // constructor(x, y, placeholder){ // to differentiate between the other contructor
-  //     this.x = x;
-  //     this.y = y;
-  // }
 
   //Getters
   get dir() {
@@ -56,12 +45,12 @@ class Vector {
 
   //Other useful functions
   normalize() {
-    divide(this.mag)
+    this.divide(this.mag)
   }
 
   limit(max) {
     if (this.mag > max) {
-      setMag(max)
+      this.setMag(max)
     }
   }
 

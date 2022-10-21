@@ -1,24 +1,10 @@
 //Boid class by 7fi
 class Boid {
-  // private Vector pos;
-  // private Vector vel;
-  // private Vector acl;
-  // let maxForce = 0.2;
-
   constructor(x = 0, y = 0, r = 0, vmag = 0) {
-    // if (vmag != undefined) {
     this.pos = new Vector(x, y, true)
     this.vel = new Vector(r, vmag)
     this.acl = new Vector()
-    // } else {
-    //   this.pos = new Vector(x, y, true)
-    //   // this.pos.x = x
-    //   // this.pos.y = y
-    //   this.vel = new Vector(r,vmag)
-    //   // this.vel.setDir(r)
-    // }
-    // console.log('Boid constucted:', this.pos, this.vel, this.acl)
-    // console.log(this)
+    this.maxForce = 0.2
   }
 
   //Getters
@@ -41,7 +27,7 @@ class Boid {
     // update vel with acl
     this.vel.add(this.acl)
 
-    this.vel.setMag(speed / 4) // to correct for framerate * deltaTime
+    this.vel.setMag(speed / 4)
 
     //update position with velocity
     if (this.isInBounds) {
@@ -60,24 +46,17 @@ class Boid {
       // if shadows are on
       ctx.fillStyle = 'rgba(0,0,0,0.4)' // set to shadow color
       if (triangles) {
-        // if in trinagle mode
         drawTri(this.pos.x + 4, this.pos.y + 4, this.vel.dir, 2)
       } else {
-        // otherwise its circle mode
-        fillCircle(this.pos.x - 15 / 2 + 4, this.pos.y - 15 / 2 + 4, 8, 2)
+        fillCircle(this.pos.x + 4, this.pos.y + 4, 8, 2)
       }
     }
 
     ctx.fillStyle = '#ddd' // set to boid color
     if (triangles) {
-      // if in triangle mode
-      // ctx.fillRect(this.pos.x, this.pos.y, 10, 10)
-      // console.log(Math.toDegrees(this.vel.dir))
       drawTri(this.pos.x, this.pos.y, this.vel.dir, 2)
     } else {
-      // otherwise its circle mode
-      fillCircle(this.pos.x - 15 / 2, this.pos.y - 15 / 2, 8, 2)
-      // ctx.fillOval(pos.x - 15 / 2, pos.y - 15 / 2, 15, 15)
+      fillCircle(this.pos.x, this.pos.y, 8, 2)
     }
 
     //setup debug circles
@@ -102,21 +81,20 @@ class Boid {
     }
   }
 
+  // returns the distance between two points
   dist(firstx, firsty, secondx, secondy) {
     if (arguments.length == 0) {
       return Math.sqrt(Math.pow(firsty.pos.x - firstx, 2) + Math.pow(firstyy.pos.y - firsty, 2))
     }
-    // returns the distance between two points
     return Math.sqrt(Math.pow(secondx - firstx, 2) + Math.pow(secondy - firsty, 2))
   }
+  // returns the distance squared between two points
   distSquared(firstx, firsty, secondx, secondy) {
     if (arguments.length == 2) {
       return (firsty.pos.x - firstx.pos.x) * (firsty.pos.x - firstx.pos.x) + (firsty.pos.y - firstx.pos.y) * (firsty.pos.y - firstx.pos.y)
-      // return distSquared(firstx.pos.x, firstx.pos.y, firsty.pos.x, firsty.pos.y)
     } else {
       return (secondx - firstx) * (secondx - firstx) + (secondy - firsty) * (secondy - firsty)
     }
-    // returns the distance squared between two points
   }
   get isInBounds() {
     const { width, height } = canvas

@@ -1,12 +1,14 @@
 function drawTri(x, y, r, factor) {
+  let angle = (110 * Math.PI) / 180
+
   let topx = x + parseInt(Math.round(7 * factor * Math.cos(r)))
   let topy = y + parseInt(Math.round(7 * factor * Math.sin(r)))
 
-  let rightx = x + parseInt(Math.round(3 * factor * Math.cos(r + Math.toRadians(110))))
-  let righty = y + parseInt(Math.round(3 * factor * Math.sin(r + Math.toRadians(110))))
+  let rightx = x + parseInt(Math.round(3 * factor * Math.cos(r + angle)))
+  let righty = y + parseInt(Math.round(3 * factor * Math.sin(r + angle)))
 
-  let leftx = x + parseInt(Math.round(3 * factor * Math.cos(r - Math.toRadians(110))))
-  let lefty = y + parseInt(Math.round(3 * factor * Math.sin(r - Math.toRadians(110))))
+  let leftx = x + parseInt(Math.round(3 * factor * Math.cos(r - angle)))
+  let lefty = y + parseInt(Math.round(3 * factor * Math.sin(r - angle)))
 
   ctx.beginPath()
   ctx.moveTo(topx, topy)

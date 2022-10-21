@@ -1,21 +1,7 @@
-const speedSlider = document.getElementById('speed')
-const numBoidsSlider = document.getElementById('numBoids')
-const visionSlider = document.getElementById('vision')
-const alignmentSlider = document.getElementById('alignment')
-const cohesionSlider = document.getElementById('cohesion')
-const seperationSlider = document.getElementById('seperation')
-
-const resetBtn = document.getElementById('reset')
-
-const visionCircleBx = document.getElementById('visionCircles')
-const visionLinesBx = document.getElementById('visionLines')
-const trianglesBx = document.getElementById('triangles')
-const shadowsBx = document.getElementById('shadows')
-const edgesBx = document.getElementById('edges')
-
 let canvas = document.getElementById('canvas')
 let ctx = canvas.getContext('2d')
 
+//Watch for window resizing
 const observer = new ResizeObserver((entries) => {
   canvas.width = canvas.clientWidth
   canvas.height = canvas.clientHeight
@@ -40,69 +26,26 @@ let triangles = true
 
 let boids = []
 
-speedSlider.oninput = function () {
-  speed = this.value
-}
-numBoidsSlider.oninput = function () {
-  numBoids = this.value
-}
-visionSlider.oninput = function () {
-  visionRange = this.value
-}
-alignmentSlider.oninput = function () {
-  alignmentMult = this.value / 10
-}
-cohesionSlider.oninput = function () {
-  cohesionMult = this.value / 10
-}
-seperationSlider.oninput = function () {
-  seperationMult = this.value / 10
-}
-
-resetBtn.addEventListener('click', () => {
-  resetBoids()
-})
-
-visionCircleBx.addEventListener('change', function () {
-  drawDebugCircles = this.checked
-})
-visionLinesBx.addEventListener('change', function () {
-  debugLines = this.checked
-})
-trianglesBx.addEventListener('change', function () {
-  triangles = this.checked
-})
-edgesBx.addEventListener('change', function () {
-  avoidEdges = this.checked
-})
-shadowsBx.addEventListener('change', function () {
-  shadows = this.checked
-})
-
 function randNum(min, max) {
   return Math.random() * (max - min) + min
 }
 
-Math.toRadians = function (degrees) {
-  return (degrees * Math.PI) / 180
-}
-Math.toDegrees = function (radians) {
-  return (radians * 180) / Math.PI
-}
-
+//Set starting conditions
 resetBoids()
 function resetBoids() {
   const { width, height } = canvas
 
+  //Create boids with space around edges
+  let edgeGap = 50
   for (let i = 0; i < numBoids; i++) {
-    //                                     X getPos()                       Y getPos()              Rotation                    Speed
-    boids[i] = new Boid(Math.floor(randNum(50, width - 50)), Math.floor(randNum(50, height - 50)), randNum(0, Math.PI * 2), 5)
+    boids[i] = new Boid(Math.floor(randNum(edgeGap, width - edgeGap)), Math.floor(randNum(edgeGap, height - edgeGap)), randNum(0, Math.PI * 2), 5)
   }
 }
 
+// begin animation
 requestAnimationFrame(update)
 function update(time) {
-  //Get scene size
+  //Get canvas size
   const { width, height } = canvas
 
   //Paint background
@@ -111,7 +54,6 @@ function update(time) {
 
   //if slider value changed update boid array length and amount
   if (numBoids > boids.length) {
-    console.log('Changing boid length')
     let oldLength = boids.length
     boids = boids.slice(0, numBoids)
     for (let i = oldLength - 1; i < numBoids; i++) {
@@ -165,7 +107,6 @@ function applyRules() {
 
         numBoidsInRange++ // add to total boids in range
 
-        // console.log('boid is in range and is not self', numBoidsInRange)
         if (debugLines) {
           // draws lines between two boids (very inefficient because it draws every line twice)
           ctx.lineWidth = 0.5
@@ -244,7 +185,7 @@ function applyRules() {
       seperationForce.divide(numBoidsInRange) // finish taking avg to get desired
       seperationForce.subtract(boid.getVel) // subtract current
       seperationForce.divide(seperationStr) // divide by damper
-      // seperationForce.limit(boid.maxForce); // limit by maxForce
+      // seperationForce.limit(boid.maxForce * 5) // limit by maxForce
 
       //Scale by slider values
       alignmentForce.multiply(alignmentMult)
@@ -256,7 +197,5 @@ function applyRules() {
     boid.addAcl(alignmentForce)
     boid.addAcl(seperationForce)
     boid.addAcl(cohesionForce)
-
-    // console.log(boid)
   })
 }

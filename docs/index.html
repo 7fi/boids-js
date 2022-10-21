@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,47 +12,51 @@
   <script src="boid.js" defer></script>
   <script src="client.js" defer></script>
 </head>
+
 <body>
   <canvas id="canvas"></canvas>
   <div class="controls">
-    
+
     <div class="sliders">
       <span>Speed</span>
-      <input id="speed" type="range" min="2" max="30" value="5" class="slider">
+      <input id="speed" type="range" min="2" max="30" value="5" class="slider" oninput="speed = this.value">
       <span>Num Boids</span>
-      <input id="numBoids" type="range" min="5" max="500" value="150" class="slider">
+      <input id="numBoids" type="range" min="5" max="500" value="150" class="slider" oninput="numBoids = this.value">
       <span>Vision range</span>
-      <input id="vision" type="range" min="50" max="400" value="100" class="slider">
+      <input id="vision" type="range" min="50" max="400" value="100" class="slider" oninput="visionRange = this.value">
       <span>Alignment force</span>
-      <input id="alignment" type="range" min="0" max="20" value="5" class="slider">
+      <input id="alignment" type="range" min="0" max="20" value="5" class="slider" oninput="alignmentMult = this.value / 10">
       <span>Cohesion force</span>
-      <input id="cohesion" type="range" min="0" max="20" value="3" class="slider">
+      <input id="cohesion" type="range" min="0" max="20" value="3" class="slider" oninput="cohesionMult = this.value / 10">
       <span>Seperation force</span>
-      <input id="seperation" type="range" min="0" max="10" value="10" class="slider">
+      <input id="seperation" type="range" min="0" max="15" value="10" class="slider" oninput=seperationMult = this.value / 10">
     </div>
     <div class="checkboxes">
-      <span>
-        <input type="checkbox" id="visionCircles">
-        Vision circles
-      </span>
-      <span>
-        <input type="checkbox" id="visionLines">
-        Vision lines
-      </span>
-      <span>
-        <input type="checkbox" id="triangles" checked>
-        Triangles
-      </span>
-      <span>
-        <input type="checkbox" id="shadows" checked>
-        Shadows
-      </span>
-      <span>
-        <input type="checkbox" id="edges">
-        Avoid Edges
-      </span>
+      <label class="container">Triangles
+        <input type="checkbox" id="triangles" checked onchange="triangles = this.checked">
+        <span class="checkmark"></span>
+      </label>
+      <div></div>
+      <label class="container">Shadows
+        <input type="checkbox" id="shadows" checked onchange="shadows = this.checked">
+        <span class="checkmark"></span>
+      </label>
+      <label class="container">Vision Circles
+        <input type="checkbox" id="visionCircles" onchange="drawDebugCircles = this.checked">
+        <span class="checkmark"></span>
+      </label>
+      <label class="container">Avoid Edges
+        <input type="checkbox" id="edges" onchange="avoidEdges = this.checked">
+        <span class="checkmark"></span>
+      </label>
+      <label class="container">Vision Lines
+        <span style="position:absolute; width:300px">(Heavy performance impact)</span>
+        <input type="checkbox" id="visionLines" onchange="debugLines = this.checked">
+        <span class="checkmark"></span>
+      </label>
     </div>
-    <button id="reset">Reset</button>
+    <button id="reset" onclick="resetBoids()">Reset</button>
   </div>
 </body>
+
 </html>
