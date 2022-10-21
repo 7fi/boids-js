@@ -95,9 +95,9 @@ class Boid {
       this.pos.x += width
     } else if (this.pos.y <= 0) {
       this.pos.y += height
-    } else if (this.pos.x >= w) {
+    } else if (this.pos.x >= width) {
       this.pos.x = 1
-    } else if (this.pos.y >= h) {
+    } else if (this.pos.y >= height) {
       this.pos.y = 1
     }
   }
@@ -119,7 +119,8 @@ class Boid {
     // returns the distance squared between two points
   }
   get isInBounds() {
+    const { width, height } = canvas
     // Returns boolean value based on if a boid is in the bounds of the screen
-    return this.pos.x <= w && this.pos.y <= h && this.pos.x >= 0 && this.pos.y >= 0
+    return this.pos.x <= width && this.pos.y <= height && this.pos.x >= 0 && this.pos.y >= 0
   }
 }

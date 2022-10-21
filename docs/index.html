@@ -14,29 +14,44 @@
 <body>
   <canvas id="canvas"></canvas>
   <div class="controls">
+    
+    <div class="sliders">
+      <span>Speed</span>
+      <input id="speed" type="range" min="2" max="30" value="5" class="slider">
+      <span>Num Boids</span>
+      <input id="numBoids" type="range" min="5" max="500" value="150" class="slider">
+      <span>Vision range</span>
+      <input id="vision" type="range" min="50" max="400" value="100" class="slider">
+      <span>Alignment force</span>
+      <input id="alignment" type="range" min="0" max="20" value="5" class="slider">
+      <span>Cohesion force</span>
+      <input id="cohesion" type="range" min="0" max="20" value="3" class="slider">
+      <span>Seperation force</span>
+      <input id="seperation" type="range" min="0" max="10" value="10" class="slider">
+    </div>
+    <div class="checkboxes">
+      <span>
+        <input type="checkbox" id="visionCircles">
+        Vision circles
+      </span>
+      <span>
+        <input type="checkbox" id="visionLines">
+        Vision lines
+      </span>
+      <span>
+        <input type="checkbox" id="triangles" checked>
+        Triangles
+      </span>
+      <span>
+        <input type="checkbox" id="shadows" checked>
+        Shadows
+      </span>
+      <span>
+        <input type="checkbox" id="edges">
+        Avoid Edges
+      </span>
+    </div>
     <button id="reset">Reset</button>
-    Vision circles
-    <input type="checkbox" id="visionCircles">
-    Vision lines
-    <input type="checkbox" id="visionLines">
-    Triangles
-    <input type="checkbox" id="triangles" checked>
-    Shadows
-    <input type="checkbox" id="shadows" checked>
-    Avoid Edges
-    <input type="checkbox" id="edges">
-    Speed
-    <input id="speed" type="range" min="2" max="30" value="5" class="slider">
-    Num Boids
-    <input id="numBoids" type="range" min="5" max="300" value="50" class="slider">
-    Vision range
-    <input id="vision" type="range" min="50" max="400" value="100" class="slider">
-    Alignment force
-    <input id="alignment" type="range" min="0" max="20" value="5" class="slider">
-    Cohesion force
-    <input id="cohesion" type="range" min="0" max="20" value="3" class="slider">
-    Seperation force
-    <input id="seperation" type="range" min="0" max="10" value="10" class="slider">
   </div>
 </body>
 </html>

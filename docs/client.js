@@ -15,24 +15,21 @@ const edgesBx = document.getElementById('edges')
 
 let canvas = document.getElementById('canvas')
 let ctx = canvas.getContext('2d')
-let w = window.innerWidth
-let h = window.innerHeight
 
 const observer = new ResizeObserver((entries) => {
   canvas.width = canvas.clientWidth
   canvas.height = canvas.clientHeight
+  resetBoids()
 })
 observer.observe(canvas)
 
 // Slider values to change
-let numBoids = 50
+let numBoids = 150
 let visionRange = 100
 let alignmentMult = 0.5
 let seperationMult = 1 // 0.7
 let cohesionMult = 0.3 // 0.1
 let speed = 5
-
-let fps = 30
 
 //Checkbox values to change
 let avoidEdges = false
@@ -81,8 +78,6 @@ edgesBx.addEventListener('change', function () {
 shadowsBx.addEventListener('change', function () {
   shadows = this.checked
 })
-
-// let boids = new Boid[numBoids]()
 
 function randNum(min, max) {
   return Math.random() * (max - min) + min
@@ -206,17 +201,17 @@ function applyRules() {
       edgeForce.add(tempDiff)
 
       //Bottom
-      tempDiff = new Vector(0, h - boid.getPos.y, true)
+      tempDiff = new Vector(0, height - boid.getPos.y, true)
       if (boid.getPos.y != 0) {
-        tempDiff.divide(Math.pow(h - boid.getPos.y, 2))
+        tempDiff.divide(Math.pow(height - boid.getPos.y, 2))
         tempDiff.multiply(-edgeAvoidanceForce)
         edgeForce.add(tempDiff)
       }
 
       //Right
-      tempDiff = new Vector(w - boid.getPos.x, 0, true)
+      tempDiff = new Vector(width - boid.getPos.x, 0, true)
       if (boid.getPos.x != 0) {
-        tempDiff.divide(Math.pow(w - boid.getPos.x, 2))
+        tempDiff.divide(Math.pow(width - boid.getPos.x, 2))
         tempDiff.multiply(-edgeAvoidanceForce)
         edgeForce.add(tempDiff)
       }

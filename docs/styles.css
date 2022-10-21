@@ -1,6 +1,9 @@
 html,body{
   height: 100%;
   margin: 0;
+  color:#ddd;
+  text-shadow: 2px 2px 5px #222;
+  font-family: sans-serif;
 }
 #canvas{
   /* position: absolute; */
@@ -13,8 +16,24 @@ html,body{
   position: fixed;
   bottom:10px;
   display: flex;
+  flex-direction: row;
+}
+.sliders{
+  display:flex;
   flex-direction: column;
 }
+.checkboxes{
+  justify-content: flex-end;
+  display: flex;
+  flex-direction: column;
+  bottom:0;
+}
+#reset{
+  position: fixed;
+  top:10px;
+  left:10px;
+}
+
 
 .slider {
   -webkit-appearance: none;
