@@ -13,7 +13,7 @@ observer.observe(canvas)
 let numBoids = 150
 let visionRange = 100
 let alignmentMult = 0.5
-let seperationMult = 1 // 0.7
+let separationMult = 1 // 0.7
 let cohesionMult = 0.3 // 0.1
 let speed = 5
 
@@ -80,7 +80,7 @@ function applyRules() {
   boids.forEach((boid) => {
     // console.log('applying rules')
     //Create default vectors
-    let seperationForce = new Vector()
+    let separationForce = new Vector()
     let cohesionForce = new Vector()
     let alignmentForce = new Vector()
     let edgeForce = new Vector()
@@ -93,7 +93,7 @@ function applyRules() {
       if (other.distSquared(boid, other) < Math.pow(visionRange, 2) && boid != other) {
         // if boid is in range and is not self
         // Inversely scaled vector in opposite direction of other boid || c = c - (b.position - bJ.position)
-        //seperationForce = seperationForce - (other.pos - boid.pos);
+        //separationForce = separationForce - (other.pos - boid.pos);
 
         let tempDiff = new Vector()
         tempDiff.add(boid.getPos)
@@ -101,7 +101,7 @@ function applyRules() {
         tempDiff.divide(other.distSquared(boid, other))
 
         //add up (for avg)
-        seperationForce.add(tempDiff)
+        separationForce.add(tempDiff)
         cohesionForce.add(other.getPos)
         alignmentForce.add(other.getVel)
 
@@ -164,7 +164,7 @@ function applyRules() {
       //hard coded offsets (not sure why they are so weird tbh)
       let alignmentStr = 150
       let cohesionStr = 4000
-      let seperationStr = 1.03
+      let separationStr = 1.03
 
       //desired_velocity = normalize (position - target) * max_speed
       //steering = desired_velocity - velocity
@@ -181,21 +181,21 @@ function applyRules() {
       cohesionForce.divide(cohesionStr) // divide by damper
       cohesionForce.limit(boid.maxForce) // limit by maxForce
 
-      //Seperation Force // steer away from nearest neighbors (working) c = c - (b.position - bJ.position)
-      seperationForce.divide(numBoidsInRange) // finish taking avg to get desired
-      seperationForce.subtract(boid.getVel) // subtract current
-      seperationForce.divide(seperationStr) // divide by damper
-      // seperationForce.limit(boid.maxForce * 5) // limit by maxForce
+      //separation Force // steer away from nearest neighbors (working) c = c - (b.position - bJ.position)
+      separationForce.divide(numBoidsInRange) // finish taking avg to get desired
+      separationForce.subtract(boid.getVel) // subtract current
+      separationForce.divide(separationStr) // divide by damper
+      // separationForce.limit(boid.maxForce * 5) // limit by maxForce
 
       //Scale by slider values
       alignmentForce.multiply(alignmentMult)
-      seperationForce.multiply(seperationMult)
+      separationForce.multiply(separationMult)
       cohesionForce.multiply(cohesionMult)
     }
     //Add up forces
     boid.addAcl(edgeForce)
     boid.addAcl(alignmentForce)
-    boid.addAcl(seperationForce)
+    boid.addAcl(separationForce)
     boid.addAcl(cohesionForce)
   })
 }
